@@ -53,6 +53,10 @@ window.analyticsCallback = function (state, action) {
             __s.events = "event32";
             __s.tl(this,'o','Refund');
         }
+    
+    case 'BONUS/TRANSFER':
+        __s.events = "event20"
+        __s.tl(this,'o','Spend bonuses');
     }
 
 
