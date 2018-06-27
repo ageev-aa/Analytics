@@ -35,9 +35,6 @@ window.analyticsCallback = function (state, action) {
       if (action.payload === 'earn'){
           __s.events = 'event30';
         __s.tl(this, 'o', 'Earn bonuses');
-      } else if (action.payload === 'spend') {
-        __s.events = 'event20';
-        __s.tl(null, 'o', 'Spend bonuses');
       }
       break;
     case 'CALCULATOR/CONFIG':
@@ -49,6 +46,12 @@ window.analyticsCallback = function (state, action) {
                 setVar('interest rate calculator', rate);
                 __s.tl(this,'o','Interest Rate Calculator');
             }
+        }
+    case 'OTP/CONFIRMED':
+        var confirmed = _.get(action, 'payload.confirmed');
+        if(confirmed){
+            __s.events = "event32";
+            __s.tl(this,'o','Refund');
         }
     }
 
