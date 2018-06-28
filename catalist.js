@@ -28,6 +28,8 @@ window.analyticsCallback = function (state, action) {
       }
       break;
     case 'AUTH/LOGIN_SEND_CODE':
+      __s.visitorID = undefined;
+      setVar('auth type', 'sms');
       __s.events = "event29";
       __s.tl(this,'o','Send Code Login');
       break;
@@ -47,17 +49,21 @@ window.analyticsCallback = function (state, action) {
                 __s.tl(this,'o','Interest Rate Calculator');
             }
         }
+        break;
     case 'OTP/CONFIRMED':
-        var confirmed = _.get(action, 'payload.confirmed');
-        if(confirmed){
-            __s.events = "event32";
-            __s.tl(this,'o','Refund');
+        if (window.location.pathname === '/documents'){
+            var confirmed = _.get(action, 'payload.confirmed');
+            if(confirmed){
+                __s.events = "event32";
+                __s.tl(this,'o','Refund');
+            }
         }
-    
+        break;
     case 'BONUS/TRANSFER':
-        __s.events = "event20"
+        __s.events = "event20";
         __s.tl(this,'o','Spend bonuses');
-    }
+        break;
+  }
 
 
     function setVar(name, value) {
@@ -70,7 +76,8 @@ window.analyticsCallback = function (state, action) {
         'visitor id': 'eVar10',
         'interest rate calculator': 'eVar11',
         'startpage': 'eVar12',
-        'referrer': 'eVar13'
+        'referrer': 'eVar13',
+        'auth type' : 'eVar14'
         };
         var evar = table[name];
         if (!evar) console.error('неизвестная переменная ' + name);
