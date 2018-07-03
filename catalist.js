@@ -28,25 +28,28 @@ window.analyticsCallback = function (state, action) {
       }
       break;
     case 'AUTH/LOGIN_SEND_CODE':
+      updateUrl();
       __s.visitorID = undefined;
       setVar('auth type', 'sms');
       __s.events = "event29";
-      __s.tl(this,'o','Send Code Login');
+      __s.tl(null,'o','Send Code Login');
       break;
     case 'BONUS/TAB':
       if (action.payload === 'earn'){
-          __s.events = 'event30';
-        __s.tl(this, 'o', 'Earn bonuses');
+        updateUrl();
+        __s.events = 'event30';
+        __s.tl(null, 'o', 'Earn bonuses');
       }
       break;
     case 'CALCULATOR/CONFIG':
       if (!action.error) {
             const credit = action.payload.fields[1].settings.promos.find(p => p.type === 'credit');
             if (credit) {
+                updateUrl();
                 const rate = credit.interestIsFixed ? credit.interestFixed : credit.interestMin;
                 __s.events = "event31";
                 setVar('interest rate calculator', rate);
-                __s.tl(this,'o','Interest Rate Calculator');
+                __s.tl(null,'o','Interest Rate Calculator');
             }
         }
         break;
@@ -54,14 +57,16 @@ window.analyticsCallback = function (state, action) {
         if (window.location.pathname === '/documents'){
             var confirmed = _.get(action, 'payload.confirmed');
             if(confirmed){
+                updateUrl();
                 __s.events = "event32";
-                __s.tl(this,'o','Refund');
+                __s.tl(null,'o','Refund');
             }
         }
         break;
     case 'BONUS/TRANSFER':
+        updateUrl();
         __s.events = "event20";
-        __s.tl(this,'o','Spend bonuses');
+        __s.tl(null,'o','Spend bonuses');
         break;
   }
 
